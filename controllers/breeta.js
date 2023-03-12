@@ -15,11 +15,6 @@ module.exports.renderBreeta = async (req, res, next) => {
   console.log("got passed lastBreet");
   const sessionUser = req.user;
   console.log("got to here");
-  try {
-    const users = await User.find({});
-  } catch (e) {
-    console.log(e);
-  }
   let feed = [];
   try {
     const baseBreets = await Breet.find({
@@ -83,9 +78,10 @@ module.exports.renderBreeta = async (req, res, next) => {
   console.log("got to here 3");
   req.session.pageNum = 1;
   console.log("got to here 4");
+  console.log("breets:", breets)
+  console.log("sessionUser:", sessionUser)
   res.render("./breeta/breeta", {
     breets,
-    users,
     functions,
     sessionUser,
   });
