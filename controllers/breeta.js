@@ -60,23 +60,25 @@ module.exports.renderBreeta = async (req, res, next) => {
     console.log(e);
   }
   console.log("got to here 2");
-  if (baseBreets !== undefined) {
-    console.log("baseBreets:", baseBreets);
-  }
-  if (rebreets !== undefined) {
-    console.log("rebreets:", rebreets);
-  }
   console.log("I must at least hit this?");
   let breets = [];
+  console.log("please")
   if (feed.length) {
+    console.log("hit feed.length")
     for (let breet of feed) {
+      console.log("hit for loop")
       if (breet.content) {
+        console.log("hit if within for")
         breets.push(breet);
       } else {
+        console.log("hit else within for")
         breets.push({ ...breet.breet._doc, rebreeter: breet.rebreeter });
       }
+      console.log("nearly escaped")
     }
-    req.session.lastBreet = breets.findLast((e) => e.time).time;
+    console.log("escaped")
+    req.session.lastBreet = breets[breets.length-1]
+    console.log("beat it")
   }
   console.log("got to here 3");
   req.session.pageNum = 1;
