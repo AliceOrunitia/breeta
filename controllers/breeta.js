@@ -58,15 +58,17 @@ module.exports.renderBreeta = async (req, res, next) => {
     console.log("rebreets:", rebreets);
   }
   console.log("I must at least hit this?");
-  if (baseBreets!==undefined && rebreets!==undefined) {
-    const feed = [...baseBreets, ...rebreets].sort((a, b) => {
-      return b.time - a.time;
-    });
-  } else if (baseBreets!==undefined) {
-    const feed = baseBreets;
-  } else if (rebreets!==undefined) {
-    const feed = rebreets;
-  }
+ let feed = [];
+
+if (baseBreets && rebreets) {
+  feed = [...baseBreets, ...rebreets].sort((a, b) => {
+    return b.time - a.time;
+  });
+} else if (baseBreets) {
+  feed = baseBreets;
+} else if (rebreets) {
+  feed = rebreets;
+}
   let breets = [];
   if (feed!==undefined) {
     for (let breet of feed) {
