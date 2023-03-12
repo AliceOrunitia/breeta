@@ -1,0 +1,31 @@
+</div><%-include("../partials/header")%>
+<div class="row my-6 py-6">
+<div class="col col-md-9">
+<h5 class="text-center">Users</h5>
+
+  <% for(let user of users){ %>
+    <div class="card my-3" style="max-width: 600px">
+        <div class="row">
+          <div class="col-3 col-sm-2 ms-2 mt-4">
+            <img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,w_200,g_face/<%=user.pfp.url.slice(47)%>" class="img-fluid img-thumbnail rounded-circle" alt="...">
+          </div>
+          <div class="col">
+            <div class="card-body pb-0">
+              <div class="card-title h5 mb-0"><%=user.dName%> 
+                <span class="h6 text-muted">@<%=user.username%></span><form action="/users/<%=user.username%>" method="post" style=" display:inline!important;"><button id="followButton"><i class="bi bi-person-<%if(sessionUser.following.includes(user.username)){%>fill-slash<%}else if(sessionUser.username !== user.username){%>heart<%}%> h6"></i></button></form>
+              </div>
+              <div class="card-title">Bio:</div>
+                <p class="card-text border mb-0 py-5 px-3"><%=user.bio%></p>
+                <p class="mb-3"><small class="text-muted align-text-top"><i class="bi bi-calendar-event"></i> Created <%=functions.timeCall(user.creationDate)%></small></p>
+               
+                <div class="mb-3 d-flex">
+                  <span class="h5 border border-2  me-2 me-md-4 rounded-pill py-2 px-3"><i class="bi bi-person-hearts"></i> Followers: <%=user.followers.length%></span>
+                  <span class="h5 border border-2 rounded-pill py-2 px-3"><i class="bi bi-person-heart"></i> Following: <%=user.following.length%></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% } %>
+</div>
+</div>
+</div><%-include("../partials/footer")%>

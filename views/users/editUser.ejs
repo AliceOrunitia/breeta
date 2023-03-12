@@ -1,0 +1,93 @@
+<%- include("../partials/header.ejs")%>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">WARNING</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to entirely delete your account?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <form action="/users/<%=sessionUser.username%>/edit?_method=DELETE" method="POST"><button class="btn btn-danger">Delete Account</button></form>
+        </div>
+      </div>
+    </div>
+  </div>
+                <div class="container-fluid">
+<div class="card w-90 mt-3 mx-auto" style="max-width:970px">
+    <div class="card-body">
+      <p class="card-text">  <form action="/users/<%=sessionUser.username%>/edit?_method=PATCH" method="POST" novalidate class="validated-form">
+        <div class="mb-3">
+            <div class="input-group">
+              <span class="input-group-text" id="basic-addon3">Display Name</span>
+              <input type="text" name="user[dName]" class="form-control" id="user[dName]" aria-describedby="basic-addon3" value="<%=sessionUser.dName%>" required>
+            </div>
+            </div>
+            <div class="mb-3">
+                <div class="input-group">
+                  <span class="input-group-text" id="basic-addon3">Username</span>
+                  <input type="text" name="user[username]" class="form-control" id="user[username]" aria-describedby="basic-addon3" value="<%=sessionUser.username%>" required>
+                </div>
+                </div>
+                <div class="mb-3">
+                  <div class="input-group">
+                    <span class="input-group-text" id="basic-addon3">Email</span>
+                    <input type="email" name="user[email]" class="form-control" id="email" aria-describedby="basic-addon3" value="<%=sessionUser.email%>" required>
+                  </div>
+                  </div>
+
+                <p>Password</p>
+                <div class="input-group mb-3">
+  <input type="password" id="password"  class="form-control rounded-right" name="password" disabled placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+  <button id="toggle-password" type="button" class="d-none"
+    aria-label="Show password as plain text. Warning: this will display your password on the screen.">
+  </button>
+</div>
+<p>Confirm Password</p>
+<div class="input-group mb-5">
+    <input type="password" id="password-confirmation"  class="form-control rounded-right" name="password" disabled placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+    <button id="toggle-password-confirmation" type="button" class="d-none"
+      aria-label="Show password as plain text. Warning: this will display your password on the screen.">
+    </button>
+  </div>
+
+
+
+
+
+        <div class="input-group mb-3">
+          <textarea class="form-control" placeholder="Tell us about yourself!" aria-label="With textarea" onkeyup="breetLength()" id="breetContent"  name="user[bio]" required><%=sessionUser.bio%></textarea>
+          <div class="invalid-feedback" id="contentFeedback">Bio cannot be empty</div>
+          </div>
+
+
+
+
+
+          <div class="input-group mb-3">
+            <div class="file-upload mb-3">
+              <div class="file-select">
+                <div class="file-select-button" id="fileName">Choose File</div>
+                <div class="file-select-name" id="noFile">No file chosen...</div> 
+                <input type="file" name="user[image]" id="chooseFile">
+              </div>
+            </div>
+        </div>
+        </div>
+        <div>
+          <button class="btn btn-warning px-3 ms-3" id="submitButton" disabled><i class="bi bi-pencil-square"></i> Submit</button>
+          <button type="button" class="btn btn-danger px-3 ms-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Delete Account
+          </button>
+          <div id="words_count" class="mb-3"><span id="textcount"></span></div>
+      </div>
+    </div>
+
+  </div>
+</form>
+
+<%- include("../partials/footer.ejs")%>

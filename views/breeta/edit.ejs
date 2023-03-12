@@ -1,0 +1,40 @@
+<%-include("../partials/header")%>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">WARNING</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete your breet?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <form action="/breeta/<%=breet._id%>/edit?_method=DELETE" method="POST"><button class="btn btn-danger">Delete Breet</button></form>
+      </div>
+    </div>
+  </div>
+</div>
+<%-include("../partials/cardheader")%>
+      <p class="card-text">  
+        <form action="/breeta/<%=breet._id%>/edit?_method=PATCH" method="POST" novalidate class="validated-form">
+        <div class="input-group">
+          <textarea class="form-control" aria-label="With textarea" onkeyup="breetLength()" id="breetContent" name="breet[content]" required><%=breet.content%></textarea>
+          <div class="invalid-feedback" id="contentFeedback">Breet cannot be empty</div>
+        </div>
+        <span id="words_count">Words count - <span id="textcount">Hi</span></span>
+ </p>
+      <% if(breet.image){ %>
+        <img src="<%=breet.image %>" class="card-img-bottom" alt="...">
+        <% } %>
+    </div>
+  </div>
+<button class="btn" id="submitButton">Submit</button>
+<button type="button" class="btn btn-danger px-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Delete Breet
+</button>
+</div>
+</form>
+
+<%-include("../partials/footer")%>

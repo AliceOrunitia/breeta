@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Breeta</title>
+
+        <link rel="icon" type="image/x-icon" href="/assets/epluribusanus.ico" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+        <link href="/css/styles.css" rel="stylesheet" />
+    </head>
+    <body class="text-white bg-dark">
+        <div class="d-flex text-center">
+        <div class="d-flex w-100 h-100 p-3 mx-auto flex-column">
+            <header class="mb-auto">
+     <div>
+        <h3 class="float-md-left mb-0">Breeta</h3>
+        <nav class="nav nav-masthead justify-content-center float-md-right">
+            <a href="/" class="nav-link active" aria-current="page">Home</a>
+            <a href="/breeta" class="nav-link">Feed</a>
+            <% if(!currentUser){ %> 
+            <a href="/users/login" class="nav-link">Login</a>
+            <a href="/users/newuser" class="nav-link">Register</a>
+            <% }else{ %> 
+            <a href="/users/logout" class="nav-link">Logout</a>
+            <% } %> 
+        </nav>
+     </div>
+    </header>
+    <main class="px-3 my-5">
+        <img src="https://i.pinimg.com/736x/0d/b6/5f/0db65f62023b8f36cfd055c48520208d--pop-pop-community-college.jpg" alt="">
+        <div class="my-5">
+        <h1 class="my-5">Breeta</h1>
+        <p class="lead">Welcome to Breeta! <br> Why not apply and connect with the wonderful, diverse community here at Breeta. We have one of everything.<br>
+        You're already accepted!</p>
+    </div>
+    <a href="/users/login" class="btn btn-lg font-weight-bold border-white bg-white text-primary px-4 mx-2 my-5"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+    <a href="/users/newuser" class="btn btn-lg font-weight-bold border-white bg-white text-primary px-3"><i class="bi bi-person-fill-add"></i> Register</a>
+</div>   
+</main>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/scripts.js"></script>
+    </body>
+    </html>

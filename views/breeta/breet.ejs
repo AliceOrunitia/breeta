@@ -1,0 +1,39 @@
+<%-include("../partials/header")%>
+
+
+<div class="card my-3" style="max-width: 100vh;">
+  <div class="row">
+    <div class="col-3 col-sm-2 ms-2 mt-4">
+      <img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,w_200,g_face/<%=sessionUser.pfp.url.slice(47)%>" class="img-fluid img-thumbnail rounded-circle" alt="...">
+    </div>
+    <div class="col">
+        <div class="card-title h5 mb-4 mt-3"><%=sessionUser.dName%> <a href="/users/<%=sessionUser.username%>" class="link-unstyled">
+          <span class="h6 text-muted">@<%=sessionUser.username%></span></a>
+        </div>
+       <form action="/breeta/breet" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+       <div class="input-group pe-3 mb-3">
+        <textarea class="form-control" aria-label="With textarea" onkeyup="breetLength()" id="breetContent" name="breet[content]" required></textarea>
+        <div class="invalid-feedback" id="contentFeedback">Breet cannot be empty</div>
+      </div>
+
+       <div class="form-text mb-1">Upload an image?</div>
+        <div class="file-upload mb-3 me-3">
+          <div class="file-select">
+            <div class="file-select-button" id="fileName"><i class="bi bi-camera me-1"></i> Choose File</div>
+            <div class="file-select-name" id="noFile">No file chosen...</div> 
+            <input type="file" name="image" id="chooseFile">
+          </div>
+        </div>
+
+        <button class="btn border mb-3 px-3" id="submitButton" disabled><i class="bi bi-brush"></i> Breet!</button>
+        <div id="words_count" class="mb-3"><span id="textcount"></span></div>
+       </div>
+    </div>
+  </div>
+</div>
+</form>
+</div>
+</div>
+
+<script src="/js/input.js"></script>
+<%-include("../partials/footer")%>

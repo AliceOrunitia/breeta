@@ -1,0 +1,73 @@
+<%-include("../partials/header")%>
+
+
+
+<div class="card my-3 ms-3" style="max-width: 100vh;">
+  <div class="row">
+    <div class="col-3 col-sm-2 ms-2 mt-4">
+      <img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,w_200,g_face/<%=sessionUser.pfp.url.slice(47)%>" class="img-fluid img-thumbnail rounded-circle" alt="...">
+    </div>
+    <div class="col">
+        <div class="card-title h5 mb-4 mt-3"><%=sessionUser.dName%> <a href="/users/<%=sessionUser.username%>" class="link-unstyled">
+          <span class="h6 text-muted">@<%=sessionUser.username%></span></a>
+        </div>
+       <form action="/breeta/<%=breet._id%>/reply" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+       <div class="input-group pe-3 mb-3">
+        <textarea class="form-control" aria-label="With textarea" onkeyup="breetLength()" id="breetContent" name="breet[content]" required></textarea>
+        <div class="invalid-feedback" id="contentFeedback">Breet cannot be empty</div>
+      </div>
+
+       <div class="form-text mb-1">Upload an image?</div>
+        <div class="file-upload mb-3 me-3">
+          <div class="file-select">
+            <div class="file-select-button" id="fileName"><i class="bi bi-camera me-1"></i> Choose File</div>
+            <div class="file-select-name" id="noFile">No file chosen...</div> 
+            <input type="file" name="image" id="chooseFile">
+          </div>
+        </div>
+
+        <button class="btn border mb-3 px-3" id="submitButton" disabled><i class="bi bi-brush"></i> Breet!</button>
+        <div id="words_count" class="mb-3"><span id="textcount"></span></div>
+       </div>
+    </div>
+  </div>
+</form>
+
+
+<div class="row my-6 py-6">
+  <div class="col-9">
+<h5 class="text-center">Original Post:</h5>
+</div>
+</div>
+
+<div class="card my-3 ms-3" style="max-width: 600px;">
+  <div class="row">
+    <div class="col-3 col-sm-2 ms-2 mt-4">
+      <img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,w_200,g_face/<%=breet.pfp.slice(47)%>" class="img-fluid img-thumbnail rounded-circle" alt="...">
+    </div>
+    <div class="col">
+      <div class="card-body pb-0 <%if(breet.rebreeter || breet.parent){%>pt-0<%}%>">
+        <% if(breet.rebreeter) {%>
+        <h6 class="text-muted fw-light align-top"> <i class="bi bi-arrow-repeat"></i> Rebreeted By <a href="/users/<%=breet.username%>" class="link-unstyled">@<%=breet.username%></a></h6>
+        <% } else if(breet.parent) {%>
+          <h6 class="text-muted fw-light align-top"> <i class="bi bi-chat"></i> In reply to <a href="/breeta/<%=breet.parent._id%>" class="link-unstyled">@<%=breet.parent.username%></a></h6>
+          <% } %>
+        <div class="card-title h5 mb-4"><%=breet.dName%> <a href="/users/<%=breet.username%>" class="link-unstyled">
+          <span class="h6 text-muted">@<%=breet.username%></span></a><form action="/users/<%=breet.username%>" method="post" style=" display:inline!important;"><button id="followButton"><i class="bi bi-person-<%if(sessionUser.following.includes(breet.username)){%>fill-slash<%}else if(sessionUser.username !== breet.username){%>heart<%}%> h6"></i></button></form>
+        </div>
+        <a href="/breeta/<%=breet._id%>"class="link-unstyled"><p class="card-text border rounded-3 py-4 px-2"><%=breet.content%></p></a>
+        <% if(breet.image) {%>
+        <div><img src="<%=breet.image.url %>" class="ml-0" alt="<%=breet.image.filename%>" style="max-height: 200px; object-fit:contain;"></div>
+        <%} %>
+        <p class="card-text mb-0 mt-4">
+            <a href="/breeta/<%=breet._id%>/like" class="link-unstyled"><button class="btn ps-0 pb-2"><i class="bi bi-heart"></i></button><%=breet.likes%></a>
+            <a href="/breeta/<%=breet._id%>/reply" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-chat"></i></button><%=breet.replies%></a>
+            <a href="/breeta/<%=breet._id%>/rebreet" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-arrow-repeat"></i></button><%=breet.rebreets%></a>
+          <p class="mb-0"><small class="text-muted align-text-top"> Posted <%=functions.timeCall(breet.time)%></small></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/input.js"></script>
+<%-include("../partials/footer")%>

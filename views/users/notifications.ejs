@@ -1,0 +1,209 @@
+</div><%-include("../partials/header")%>
+
+<div class="row my-6 py-6">
+<div class="col-9">
+
+<h3 class="text-center mb-5 mt-3">Notifications</h5>
+<% for(let notification of activeNotifications) {%>
+
+  <% if(notification.followor) {%>
+    <h4 class="text-muted fw-bold align-top"> <i class="bi bi-person-heart"></i> Followed by <a href="/users/<%=notification.followor.username%>" class="link-unstyled">@<%=notification.followor.username%>!</a></h6>
+      <div class="card my-3" style="max-width: 600px;">
+        <div class="row">
+          <div class="col-3 col-sm-2 ms-2 mt-4">
+            <img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,w_200,g_face/<%=notification.followor.pfp.url.slice(47)%>" class="img-fluid img-thumbnail rounded-circle" alt="...">
+          </div>
+          <div class="col">
+            <div class="card-body pb-0)">
+              <div class="card-title h5 mb-4"><%=notification.followor.dName%> <a href="/users/<%=notification.followor.username%>" class="link-unstyled">
+                <span class="h6 text-muted">@<%=notification.followor.username%></span></a>
+              </div>
+               <p class="card-text border rounded-3 py-4 px-3"><%=notification.followor.bio%></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<% }else if(notification.likor) {%>
+  <h4 class="text-muted fw-bold align-top"> <i class="bi bi-heart"></i> Liked By <a href="/users/<%=notification.likor.username%>" class="link-unstyled">@<%=notification.likor.username%></a></h6>
+  <div class="card my-3" style="max-width: 600px;">
+    <div class="row">
+      <div class="col-3 col-sm-2 ms-2 mt-4">
+        <img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,w_200,g_face/<%=notification.breet.pfp.slice(47)%>" class="img-fluid img-thumbnail rounded-circle" alt="...">
+      </div>
+      <div class="col">
+        <div class="card-body pb-0 <%if(notification.breet.rebreeter || notification.breet.parent){%>pt-0<%}%>">
+          <% if(notification.breet.rebreeter) {%>
+          <h6 class="text-muted fw-light align-top"> <i class="bi bi-arrow-repeat"></i> Rebreeted By <a href="/users/<%=notification.breet.username%>" class="link-unstyled">@<%=notification.breet.username%></a></h6>
+          <% } else if(notification.breet.parent) {%>
+            <h6 class="text-muted fw-light align-top"> <i class="bi bi-chat"></i> In reply to <a href="/breeta/<%=notification.breet.parent._id%>" class="link-unstyled">@<%=notification.breet.parent.username%></a></h6>
+            <% } %>
+          <div class="card-title h5 mb-4"><%=notification.breet.dName%> <a href="/users/<%=notification.breet.username%>" class="link-unstyled">
+            <span class="h6 text-muted">@<%=notification.breet.username%></span></a>
+          </div>
+          <a href="/breeta/<%=notification.breet._id%>"class="link-unstyled"><p class="card-text border rounded-3 py-4 px-3"><%=notification.breet.content%></p></a>
+          <p class="card-text mb-0 mt-4">
+              <a href="/breeta/<%=notification.breet._id%>/like" class="link-unstyled"><button class="btn ps-0 pb-2"><i class="bi bi-heart"></i></button><%=notification.breet.likes%></a>
+              <a href="/breeta/<%=notification.breet._id%>/reply" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-chat"></i></button><%=notification.breet.replies%></a>
+              <a href="/breeta/<%=notification.breet._id%>/rebreet" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-arrow-repeat"></i></button><%=notification.breet.rebreets%></a>
+            <p class="mb-0"><small class="text-muted align-text-top"> Posted <%=functions.timeCall(notification.breet.time)%></small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% }else if(notification.replior) {%>
+    <h3 class="text-muted fw-bold align-top"> <i class="bi bi-chat"></i><a href="/users/<%=notification.replior.username%>" class="link-unstyled"> @<%=notification.replior.username%> replied to your Breet!</a></h6>
+      <div class="card my-3" style="max-width: 600px;">
+        <div class="row">
+          <div class="col-3 col-sm-2 ms-2 mt-4">
+            <img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,w_200,g_face/<%=notification.breet.pfp.slice(47)%>" class="img-fluid img-thumbnail rounded-circle" alt="...">
+          </div>
+          <div class="col">
+            <div class="card-body pb-0">
+              <div class="card-title h5 mb-4"><%=notification.breet.dName%> <a href="/users/<%=notification.breet.username%>" class="link-unstyled">
+                <span class="h6 text-muted">@<%=notification.breet.username%></span></a>
+              </div>
+              <a href="/breeta/<%=notification.breet._id%>"class="link-unstyled"><p class="card-text border rounded-3 py-4 px-3"><%=notification.breet.content%></p></a>
+              <p class="card-text mb-0 mt-4">
+                  <a href="/breeta/<%=notification.breet._id%>/like" class="link-unstyled"><button class="btn ps-0 pb-2"><i class="bi bi-heart"></i></button><%=notification.breet.likes%></a>
+                  <a href="/breeta/<%=notification.breet._id%>/reply" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-chat"></i></button><%=notification.breet.replies%></a>
+                  <a href="/breeta/<%=notification.breet._id%>/rebreet" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-arrow-repeat"></i></button><%=notification.breet.rebreets%></a>
+                <p class="mb-0"><small class="text-muted align-text-top"> Posted <%=functions.timeCall(notification.breet.time)%></small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <% }else if(notification.rebreetor) {%>
+      <h4 class="text-muted fw-bold align-top"> <i class="bi bi-arrow-repeat"></i><a href="/users/<%=notification.rebreetor.username%>" class="link-unstyled"> @<%=notification.rebreetor.username%> rebreeted your Breet!</a></h6>
+        <div class="card my-3" style="max-width: 600px;">
+          <div class="row">
+            <div class="col-3 col-sm-2 ms-2 mt-4">
+              <img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,w_200,g_face/<%=notification.breet.pfp.slice(47)%>" class="img-fluid img-thumbnail rounded-circle" alt="...">
+            </div>
+            <div class="col">
+              <div class="card-body pb-0 <%if(notification.breet.rebreeter || notification.breet.parent){%>pt-0<%}%>">
+                <% if(notification.breet.rebreeter) {%>
+                <h6 class="text-muted fw-light align-top"> <i class="bi bi-arrow-repeat"></i> Rebreeted By <a href="/users/<%=notification.breet.username%>" class="link-unstyled">@<%=notification.breet.username%></a></h6>
+                <% } else if(notification.breet.parent) {%>
+                  <h6 class="text-muted fw-light align-top"> <i class="bi bi-chat"></i> In reply to <a href="/breeta/<%=notification.breet.parent._id%>" class="link-unstyled">@<%=notification.breet.parent.username%></a></h6>
+                  <% } %>
+                <div class="card-title h5 mb-4"><%=notification.breet.dName%> <a href="/users/<%=notification.breet.username%>" class="link-unstyled">
+                  <span class="h6 text-muted">@<%=notification.breet.username%></span></a>
+                </div>
+                <a href="/breeta/<%=notification.breet._id%>"class="link-unstyled"><p class="card-text border rounded-3 py-4 px-3"><%=notification.breet.content%></p></a>
+                <p class="card-text mb-0 mt-4">
+                    <a href="/breeta/<%=notification.breet._id%>/like" class="link-unstyled"><button class="btn ps-0 pb-2"><i class="bi bi-heart"></i></button><%=notification.breet.likes%></a>
+                    <a href="/breeta/<%=notification.breet._id%>/reply" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-chat"></i></button><%=notification.breet.replies%></a>
+                    <a href="/breeta/<%=notification.breet._id%>/rebreet" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-arrow-repeat"></i></button><%=notification.breet.rebreets%></a>
+                  <p class="mb-0"><small class="text-muted align-text-top"> Posted <%=functions.timeCall(notification.breet.time)%></small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+  <% } %>
+  <% } %>
+
+  <% for(let notification of inactiveNotifications) {%>
+
+    <% if(notification.followor) {%>
+      <h4 class="text-muted fw-bold align-top"> <i class="bi bi-person-heart"></i> Followed by <a href="/users/<%=notification.followor.username%>" class="link-unstyled">@<%=notification.followor.username%>!</a></h6>
+        <div class="card my-3" style="max-width: 600px; background-color: rgba(0,0,0,0.06);">
+          <div class="row">
+            <div class="col-3 col-sm-2 ms-2 mt-4">
+              <img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,w_200,g_face/<%=notification.followor.pfp.url.slice(47)%>" class="img-fluid img-thumbnail rounded-circle" alt="...">
+            </div>
+            <div class="col">
+              <div class="card-body pb-0)">
+                <div class="card-title h5 mb-4"><%=notification.followor.dName%> <a href="/users/<%=notification.followor.username%>" class="link-unstyled">
+                  <span class="h6 text-muted">@<%=notification.followor.username%></span></a>
+                </div>
+                 <p class="card-text border rounded-3 py-4 px-3"><%=notification.followor.bio%></p>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+  <% }else if(notification.likor) {%>
+    <h4 class="text-muted fw-bold align-top"> <i class="bi bi-heart"></i> Liked By <a href="/users/<%=notification.likor.username%>" class="link-unstyled">@<%=notification.likor.username%></a></h6>
+    <div class="card my-3" style="max-width: 600px; background-color: rgba(0,0,0,0.06);">
+      <div class="row">
+        <div class="col-3 col-sm-2 ms-2 mt-4">
+          <img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,w_200,g_face/<%=notification.breet.pfp.slice(47)%>" class="img-fluid img-thumbnail rounded-circle" alt="...">
+        </div>
+        <div class="col">
+          <div class="card-body pb-0 <%if(notification.breet.rebreeter || notification.breet.parent){%>pt-0<%}%>">
+            <% if(notification.breet.rebreeter) {%>
+            <h6 class="text-muted fw-light align-top"> <i class="bi bi-arrow-repeat"></i> Rebreeted By <a href="/users/<%=notification.breet.username%>" class="link-unstyled">@<%=notification.breet.username%></a></h6>
+            <% } else if(notification.breet.parent) {%>
+              <h6 class="text-muted fw-light align-top"> <i class="bi bi-chat"></i> In reply to <a href="/breeta/<%=notification.breet.parent._id%>" class="link-unstyled">@<%=notification.breet.parent.username%></a></h6>
+              <% } %>
+            <div class="card-title h5 mb-4"><%=notification.breet.dName%> <a href="/users/<%=notification.breet.username%>" class="link-unstyled">
+              <span class="h6 text-muted">@<%=notification.breet.username%></span></a>
+            </div>
+            <a href="/breeta/<%=notification.breet._id%>"class="link-unstyled"><p class="card-text border rounded-3 py-4 px-3"><%=notification.breet.content%></p></a>
+            <p class="card-text mb-0 mt-4">
+                <a href="/breeta/<%=notification.breet._id%>/like" class="link-unstyled"><button class="btn ps-0 pb-2"><i class="bi bi-heart"></i></button><%=notification.breet.likes%></a>
+                <a href="/breeta/<%=notification.breet._id%>/reply" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-chat"></i></button><%=notification.breet.replies%></a>
+                <a href="/breeta/<%=notification.breet._id%>/rebreet" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-arrow-repeat"></i></button><%=notification.breet.rebreets%></a>
+              <p class="mb-0"><small class="text-muted align-text-top"> Posted <%=functions.timeCall(notification.breet.time)%></small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <% }else if(notification.replior) {%>
+      <h3 class="text-muted fw-bold align-top"> <i class="bi bi-chat"></i><a href="/users/<%=notification.replior.username%>" class="link-unstyled"> @<%=notification.replior.username%> replied to your Breet!</a></h6>
+        <div class="card my-3" style="max-width: 600px; background-color: rgba(0,0,0,0.06);">
+          <div class="row">
+            <div class="col-3 col-sm-2 ms-2 mt-4">
+              <img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,w_200,g_face/<%=notification.breet.pfp.slice(47)%>" class="img-fluid img-thumbnail rounded-circle" alt="...">
+            </div>
+            <div class="col">
+              <div class="card-body pb-0">
+                <div class="card-title h5 mb-4"><%=notification.breet.dName%> <a href="/users/<%=notification.breet.username%>" class="link-unstyled">
+                  <span class="h6 text-muted">@<%=notification.breet.username%></span></a>
+                </div>
+                <a href="/breeta/<%=notification.breet._id%>"class="link-unstyled"><p class="card-text border rounded-3 py-4 px-3"><%=notification.breet.content%></p></a>
+                <p class="card-text mb-0 mt-4">
+                    <a href="/breeta/<%=notification.breet._id%>/like" class="link-unstyled"><button class="btn ps-0 pb-2"><i class="bi bi-heart"></i></button><%=notification.breet.likes%></a>
+                    <a href="/breeta/<%=notification.breet._id%>/reply" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-chat"></i></button><%=notification.breet.replies%></a>
+                    <a href="/breeta/<%=notification.breet._id%>/rebreet" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-arrow-repeat"></i></button><%=notification.breet.rebreets%></a>
+                  <p class="mb-0"><small class="text-muted align-text-top"> Posted <%=functions.timeCall(notification.breet.time)%></small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+      <% }else if(notification.rebreetor) {%>
+        <h4 class="text-muted fw-bold align-top"> <i class="bi bi-arrow-repeat"></i><a href="/users/<%=notification.rebreetor.username%>" class="link-unstyled"> @<%=notification.rebreetor.username%> rebreeted your Breet!</a></h6>
+          <div class="card my-3" style="max-width: 600px; background-color: rgba(0,0,0,0.06);">
+            <div class="row">
+              <div class="col-3 col-sm-2 ms-2 mt-4">
+                <img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,w_200,g_face/<%=notification.breet.pfp.slice(47)%>" class="img-fluid img-thumbnail rounded-circle" alt="...">
+              </div>
+              <div class="col">
+                <div class="card-body pb-0 <%if(notification.breet.rebreeter || notification.breet.parent){%>pt-0<%}%>">
+                  <% if(notification.breet.rebreeter) {%>
+                  <h6 class="text-muted fw-light align-top"> <i class="bi bi-arrow-repeat"></i> Rebreeted By <a href="/users/<%=notification.breet.username%>" class="link-unstyled">@<%=notification.breet.username%></a></h6>
+                  <% } else if(notification.breet.parent) {%>
+                    <h6 class="text-muted fw-light align-top"> <i class="bi bi-chat"></i> In reply to <a href="/breeta/<%=notification.breet.parent._id%>" class="link-unstyled">@<%=notification.breet.parent.username%></a></h6>
+                    <% } %>
+                  <div class="card-title h5 mb-4"><%=notification.breet.dName%> <a href="/users/<%=notification.breet.username%>" class="link-unstyled">
+                    <span class="h6 text-muted">@<%=notification.breet.username%></span></a>
+                  </div>
+                  <a href="/breeta/<%=notification.breet._id%>"class="link-unstyled"><p class="card-text border rounded-3 py-4 px-3"><%=notification.breet.content%></p></a>
+                  <p class="card-text mb-0 mt-4">
+                      <a href="/breeta/<%=notification.breet._id%>/like" class="link-unstyled"><button class="btn ps-0 pb-2"><i class="bi bi-heart"></i></button><%=notification.breet.likes%></a>
+                      <a href="/breeta/<%=notification.breet._id%>/reply" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-chat"></i></button><%=notification.breet.replies%></a>
+                      <a href="/breeta/<%=notification.breet._id%>/rebreet" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-arrow-repeat"></i></button><%=notification.breet.rebreets%></a>
+                    <p class="mb-0"><small class="text-muted align-text-top"> Posted <%=functions.timeCall(notification.breet.time)%></small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+    <% } %>
+    <% } %>  
+</div>
+</div><%-include("../partials/footer")%>

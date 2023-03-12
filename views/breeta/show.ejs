@@ -1,0 +1,129 @@
+</div><%-include("../partials/header")%>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">WARNING</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to  delete your breet?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <form action="/breeta/<%=breet._id%>/edit?_method=DELETE" method="POST"><button class="btn btn-danger">Delete Breet</button></form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if(breet.parent) {%>
+<div class="card my-3" style="max-width: 600px;">
+  <div class="row">
+    <div class="col-3 col-sm-2 ms-2 mt-4">
+      <img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,w_200,g_face/<%=breet.parent.pfp.slice(47)%>" class="img-fluid img-thumbnail rounded-circle" alt="...">
+    </div>
+    <div class="col">
+      <div class="card-body pb-0 <%if(breet.parent.rebreeter || breet.parent.parent){%>pt-0<%}%>">
+        <% if(breet.parent.rebreeter) {%>
+        <h6 class="text-muted fw-light align-top"> <i class="bi bi-arrow-repeat"></i> Rebreeted By <a href="/users/<%=breet.username%>" class="link-unstyled">@<%=breet.parent.username%>></a></h6>
+        <% } else if(breet.parent.parent) {%>
+          <h6 class="text-muted fw-light align-top"> <i class="bi bi-chat"></i> In reply to <a href="/breeta/<%=breet.parent._id%>" class="link-unstyled">@<%=breet.parent.username%></a></h6>
+          <% } %>
+        <div class="card-title h5 mb-4"><%=breet.parent.dName%> <a href="/users/<%=breet.parent.username%>" class="link-unstyled">
+          <span class="h6 text-muted">@<%=breet.parent.username%></span></a><form action="/users/<%=breet.parent.username%>" method="post" style=" display:inline!important;"><button id="followButton"><i class="bi bi-person-<%if(sessionUser.following.includes(breet.parent.username)){%>fill-slash<%}else if(sessionUser.username !== breet.parent.username){%>heart<%}%> h6"></i></button></form>
+        </div>
+        <a href="/breeta/<%=breet.parent._id%>"class="link-unstyled"><p class="card-text border rounded-3 py-5 px-2"><%=breet.parent.content%></p></a>
+        <% if(breet.parent.image) {%>
+        <div><img src="<%=breet.parent.image.url %>" class="ml-0" alt="<%=breet.parent.image.filename%>" style="max-height: 200px; object-fit:contain;"></div>
+        <%} %>
+        <p class="card-text mb-0 mt-4">
+            <a href="/breeta/<%=breet.parent._id%>/like" class="link-unstyled"><button class="btn ps-0 pb-2"><i class="bi bi-heart"></i></button>0</a>
+            <a href="/breeta/<%=breet.parent._id%>/reply" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-chat"></i></button>0</a>
+            <a href="/breeta/<%=breet.parent._id%>/rebreet" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-arrow-repeat"></i></button>0</a>
+          <p class="mb-0"><small class="text-muted align-text-top"> Posted <%=functions.timeCall(breet.parent.time)%></small></p>
+          <% if(sessionUser.username === breet.parent.username) {%>
+
+            <a href="/breeta/<%=breet.parent._id%>/edit" class="card-link btn pe-4 my-3 me-3 border"><i class="bi bi-pencil me-2"></i> Edit</a>
+              <button type="button" class="btn px-3 border" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <i class="bi bi-trash me-2"></i> Delete Breet
+              </button>
+          <% } %>
+        </div>
+    </div>
+  </div>
+</div>
+<% } %>
+
+
+    <div class="card my-3" style="max-width: 800px;">
+      <div class="row">
+        <div class="col-3 col-sm-2 ms-2 mt-4">
+          <img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,w_200,g_face/<%=breet.pfp.slice(47)%>" class="img-fluid img-thumbnail rounded-circle" alt="...">
+        </div>
+        <div class="col">
+          <div class="card-body pb-0 <%if(breet.rebreeter || breet.parent){%>pt-0<%}%>">
+            <% if(breet.rebreeter) {%>
+            <h6 class="text-muted fw-light align-top"> <i class="bi bi-arrow-repeat"></i> Rebreeted By <a href="/users/<%=breet.username%>" class="link-unstyled">@<%=breet.username%>></a></h6>
+            <% } else if(breet.parent) {%>
+              <h6 class="text-muted fw-light align-top"> <i class="bi bi-chat"></i> In reply to <a href="/breeta/<%=breet.parent._id%>" class="link-unstyled">@<%=breet.parent.username%></a></h6>
+              <% } %>
+            <div class="card-title h5 mb-4"><%=breet.dName%> <a href="/users/<%=breet.username%>" class="link-unstyled">
+              <span class="h6 text-muted">@<%=breet.username%></span></a><form action="/users/<%=breet.username%>" method="post" style=" display:inline!important;"><button id="followButton"><i class="bi bi-person-<%if(sessionUser.following.includes(breet.username)){%>fill-slash<%}else if(sessionUser.username !== breet.username){%>heart<%}%> h6"></i></button></form>
+            </div>
+            <a href="/breeta/<%=breet._id%>"class="link-unstyled"><p class="card-text border rounded-3 py-5 px-2"><%=breet.content%></p></a>
+            <% if(breet.image) {%>
+            <div><img src="<%=breet.image.url %>" class="ml-0" alt="<%=breet.image.filename%>" style="max-height: 200px; object-fit:contain;"></div>
+            <%} %>
+            <p class="card-text mb-0 mt-4">
+                <a href="/breeta/<%=breet._id%>/like" class="link-unstyled"><button class="btn ps-0 pb-2"><i class="bi bi-heart"></i></button>0</a>
+                <a href="/breeta/<%=breet._id%>/reply" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-chat"></i></button>0</a>
+                <a href="/breeta/<%=breet._id%>/rebreet" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-arrow-repeat"></i></button>0</a>
+              <p class="mb-0"><small class="text-muted align-text-top"> Posted <%=functions.timeCall(breet.time)%></small></p>
+              <% if(sessionUser.username === breet.username) {%>
+
+                <a href="/breeta/<%=breet._id%>/edit" class="card-link btn pe-4 my-3 me-3 border"><i class="bi bi-pencil me-2"></i> Edit</a>
+                  <button type="button" class="btn px-3 border" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i class="bi bi-trash me-2"></i> Delete Breet
+                  </button>
+              <% } %>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <% for(let breet of breets){ %>
+      <div class="card my-3" style="max-width: 600px;">
+        <div class="row">
+          <div class="col-3 col-sm-2 ms-2 mt-4">
+            <img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,w_200,g_face/<%=breet.pfp.slice(47)%>" class="img-fluid img-thumbnail rounded-circle" alt="...">
+          </div>
+          <div class="col">
+            <div class="card-body pb-0 <%if(breet.rebreeter || breet.parent){%>pt-0<%}%>">
+              <% if(breet.rebreeter) {%>
+              <h6 class="text-muted fw-light align-top"> <i class="bi bi-arrow-repeat"></i> Rebreeted By <a href="/users/<%=breet.username%>" class="link-unstyled">@<%=breet.username%></a></h6>
+              <% } else if(breet.parent) {%>
+                <h6 class="text-muted fw-light align-top"> <i class="bi bi-chat"></i> In reply to <a href="/breeta/<%=breet.parent._id%>" class="link-unstyled">@<%=breet.parent.username%></a></h6>
+                <% } %>
+              <div class="card-title h5 mb-4"><%=breet.dName%> <a href="/users/<%=breet.username%>" class="link-unstyled">
+                <span class="h6 text-muted">@<%=breet.username%></span></a><form action="/users/<%=breet.username%>" method="post" style=" display:inline!important;"><button id="followButton"><i class="bi bi-person-<%if(sessionUser.following.includes(breet.username)){%>fill-slash<%}else if(sessionUser.username !== breet.username){%>heart<%}%> h6"></i></button></form>
+              </div>
+              <a href="/breeta/<%=breet._id%>"class="link-unstyled"><p class="card-text border rounded-3 py-4 px-3"><%=breet.content%></p></a>
+              <% if(breet.image) {%>
+              <div><img src="<%=breet.image.url %>" class="ml-0" alt="<%=breet.image.filename%>" style="max-height: 200px; object-fit:contain;"></div>
+              <%} %>
+              <p class="card-text mb-0 mt-4">
+                  <a href="/breeta/<%=breet._id%>/like" class="link-unstyled"><button class="btn ps-0 pb-2"><i class="bi bi-heart"></i></button><%=breet.likes%></a>
+                  <a href="/breeta/<%=breet._id%>/reply" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-chat"></i></button><%=breet.replies%></a>
+                  <a href="/breeta/<%=breet._id%>/rebreet" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-arrow-repeat"></i></button><%=breet.rebreets%></a>
+                <p class="mb-0"><small class="text-muted align-text-top"> Posted <%=functions.timeCall(breet.time)%></small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+
+
+
+  </div>
+  <%-include("../partials/footer")%>

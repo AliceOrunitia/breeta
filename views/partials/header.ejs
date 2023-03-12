@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Breeta</title>
+
+        <link rel="icon" type="image/x-icon" href="assets/epluribusanus.ico" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+        <link href="/css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="/css/input.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <div class="container-fluid">
+                <button class="toggleButton" id="sidebarToggle"><img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,w_200,g_face/<%=sessionUser.pfp.url.slice(47)%>" class="rounded-circle" alt="..." style="height: 50px; width: 50px"></button>
+            </div>
+        </nav>
+        <div class="d-flex" id="wrapper">
+            <div class="border-end bg-white" id="sidebar-wrapper">
+                <% if(sessionUser){ %><div class="sidebar-heading border-bottom bg-light text-center"><%=sessionUser.dName%></div><% } %>
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/breeta"><i class="bi bi-house"></i> Dashboard</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/users/notifications"><i class="bi bi-bell"></i> Notifications <span class="fw-bolder ms-1"><%=sessionUser.notifications%></span></a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/users/<%=sessionUser.username%>"><i class="bi bi-person"></i> Profile</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/users/<%=sessionUser.username%>/edit"><i class="bi bi-person-lines-fill"></i> Edit Profile</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/users/explore"><i class="bi bi-compass"></i> Explore</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/breeta/breet"><i class="bi bi-brush"></i> Breet!</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/users/logout"><i class="bi bi-box-arrow-in-left"></i> Log Out</a>
+                </div>
+            </div>
+            <div id="page-content-wrapper">
+                <div class="container-fluid" id="main-feed">
+                    <%- include("../partials/flash.ejs")%>
+                   
