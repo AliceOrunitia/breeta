@@ -46,7 +46,9 @@ module.exports.renderBreeta = async (req, res, next) => {
     }
   }
   req.session.pageNum = 1;
-  req.session.lastBreet = breets.findLast((e) => e.time).time;
+  if (breets.length) {
+    req.session.lastBreet = breets.findLast((e) => e.time).time;
+  }
   res.render("./breeta/breeta", {
     breets,
     users,
