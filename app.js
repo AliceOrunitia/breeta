@@ -12,7 +12,6 @@ const flash = require("connect-flash");
 const mongoSanitize = require("express-mongo-sanitize");
 const session = require("express-session");
 const User = require("./models/users");
-const helmet = require("helmet");
 const MongoDBStore = require("connect-mongo");
 
 //Authentication
@@ -73,22 +72,6 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 app.use(flash());
-
-// Helmet Config
-const scriptSrcUrls = [
-  "https://stackpath.bootstrapcdn.com",
-  "https://kit.fontawesome.com",
-  "https://cdnjs.cloudflare.com",
-  "https://cdn.jsdelivr.net",
-  "https://code.jquery.com",
-];
-const styleSrcUrls = [
-  "https://kit-free.fontawesome.com",
-  "https://stackpath.bootstrapcdn.com",
-  "https://fonts.googleapis.com",
-  "https://use.fontawesome.com",
-  "https://cdn.jsdelivr.net",
-];
 
 const fontSrcUrls = [  "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/",];
 app.use(
