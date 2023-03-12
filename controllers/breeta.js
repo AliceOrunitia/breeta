@@ -8,13 +8,9 @@ const { session } = require("passport");
 const { cloudinary } = require("../cloudinary");
 
 module.exports.renderBreeta = async (req, res, next) => {
-  console.log("hit");
   delete req.session.pageNum;
-  console.log("got passed pageNum");
   delete req.session.lastBreet;
-  console.log("got passed lastBreet");
   const sessionUser = req.user;
-  console.log("got to here");
   let feed = [];
   try {
     const baseBreets = await Breet.find({
@@ -54,32 +50,18 @@ module.exports.renderBreeta = async (req, res, next) => {
   } catch (e) {
     console.log(e);
   }
-  console.log("got to here 2");
-  console.log("I must at least hit this?");
   let breets = [];
-  console.log("please")
   if (feed.length) {
-    console.log("hit feed.length")
     for (let breet of feed) {
-      console.log("hit for loop")
       if (breet.content) {
-        console.log("hit if within for")
         breets.push(breet);
       } else {
-        console.log("hit else within for")
         breets.push({ ...breet.breet._doc, rebreeter: breet.rebreeter });
       }
-      console.log("nearly escaped")
     }
-    console.log("escaped")
     req.session.lastBreet = breets[breets.length-1]
-    console.log("beat it")
   }
-  console.log("got to here 3");
   req.session.pageNum = 1;
-  console.log("got to here 4");
-  console.log("breets:", breets)
-  console.log("sessionUser:", sessionUser)
   res.render("./breeta/breeta", {
     breets,
     functions,
