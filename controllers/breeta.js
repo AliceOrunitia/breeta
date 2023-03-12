@@ -20,6 +20,7 @@ module.exports.renderBreeta = async (req, res, next) => {
   } catch (e) {
     console.log(e);
   }
+  let feed = [];
   try {
     const baseBreets = await Breet.find({
       $or: [
@@ -32,6 +33,9 @@ module.exports.renderBreeta = async (req, res, next) => {
       .sort({ time: -1 })
       .limit(15)
       .populate("parent");
+    if (baseBreets) {
+      feed = baseBreets;
+    }
   } catch (e) {
     console.log(e);
   }
@@ -45,32 +49,26 @@ module.exports.renderBreeta = async (req, res, next) => {
       ],
     })
       .sort({ time: -1 })
-      .limit(20 - baseBreets.length)
+      .limit(20 - feed.length)
       .populate("breet");
+    if (rebreets) {
+      feed = [...feed, ...rebreets].sort((a, b) => {
+        return b.time - a.time;
+      });
+    }
   } catch (e) {
     console.log(e);
   }
   console.log("got to here 2");
-  if (baseBreets !==undefined) {
+  if (baseBreets !== undefined) {
     console.log("baseBreets:", baseBreets);
   }
-  if (rebreets!==undefined) {
+  if (rebreets !== undefined) {
     console.log("rebreets:", rebreets);
   }
   console.log("I must at least hit this?");
- let feed = [];
-
-if (baseBreets && rebreets) {
-  feed = [...baseBreets, ...rebreets].sort((a, b) => {
-    return b.time - a.time;
-  });
-} else if (baseBreets) {
-  feed = baseBreets;
-} else if (rebreets) {
-  feed = rebreets;
-}
   let breets = [];
-  if (feed!==undefined) {
+  if (feed.length) {
     for (let breet of feed) {
       if (breet.content) {
         breets.push(breet);
@@ -78,12 +76,10 @@ if (baseBreets && rebreets) {
         breets.push({ ...breet.breet._doc, rebreeter: breet.rebreeter });
       }
     }
+    req.session.lastBreet = breets.findLast((e) => e.time).time;
   }
   console.log("got to here 3");
   req.session.pageNum = 1;
-  if (breets.length) {
-    req.session.lastBreet = breets.findLast((e) => e.time).time;
-  }
   console.log("got to here 4");
   res.render("./breeta/breeta", {
     breets,
