@@ -90,7 +90,7 @@ const styleSrcUrls = [
   "https://cdn.jsdelivr.net",
 ];
 
-const fontSrcUrls = [];
+const fontSrcUrls = [  "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/",];
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
