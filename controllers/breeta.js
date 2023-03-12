@@ -8,8 +8,11 @@ const { session } = require("passport");
 const { cloudinary } = require("../cloudinary");
 
 module.exports.renderBreeta = async (req, res, next) => {
+  console.log("hit")
   delete req.session.pageNum;
+  console.log("got passed pageNum")
   delete req.session.lastBreet;
+  console.log("got passed lastBreet")
   const sessionUser = req.user;
   console.log("got to here")
   try{
