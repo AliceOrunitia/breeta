@@ -9,10 +9,12 @@ const { storage, cloudinary } = require("../cloudinary");
 const upload = multer({ storage });
 
 module.exports.registerUser = async (req, res, next) => {
+  console.log("hit");
   try {
     const { email, dName, password, username, bio } = req.body.user;
     const creationDate = Date.now();
     let image;
+
     if (req.file) {
       image = { url: req.file.path, filename: req.file.filename };
     } else {
