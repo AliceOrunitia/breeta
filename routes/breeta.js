@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const wrapAsync = require("../utilities/wrapAsync");
+const wrapAsync = require("../Utilities/wrapAsync");
 const breeta = require("../controllers/breeta");
 const appError = require("../appError");
 const Joi = require("joi");
