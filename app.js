@@ -59,7 +59,7 @@ store.on("error", function (e) {
 // Session Configuration
 const sessionConfig = {
   name: "session",
-  secret: "babysharkdoodoodoo",
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   store,
