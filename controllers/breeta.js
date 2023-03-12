@@ -49,16 +49,20 @@ module.exports.renderBreeta = async (req, res, next) => {
   } catch(e){
     console.log(e)}
   console.log("got to here 2")
+  console.log("baseBreets:", baseBreets)
+console.log("rebreets:", rebreets)
   const feed = [...baseBreets, ...rebreets].sort((a, b) => {
     return b.time - a.time;
   });
   let breets = [];
+  if(breets.length){
   for (let breet of feed) {
     if (breet.content) {
       breets.push(breet);
     } else {
       breets.push({ ...breet.breet._doc, rebreeter: breet.rebreeter });
     }
+  }
   }
   console.log("got to here 3")
   req.session.pageNum = 1;
