@@ -11,7 +11,13 @@ module.exports.renderBreeta = async (req, res, next) => {
   delete req.session.pageNum;
   delete req.session.lastBreet;
   const sessionUser = req.user;
+  console.log("got to here")
+  try{
   const users = await User.find({});
+  } catch (e) {
+  console.log(e);
+}
+  try{
   const baseBreets = await Breet.find({
     $or: [
       { username: sessionUser.username },
@@ -23,6 +29,9 @@ module.exports.renderBreeta = async (req, res, next) => {
     .sort({ time: -1 })
     .limit(15)
     .populate("parent");
+  } catch (e) {
+  console.log(e)}
+  try{
   const rebreets = await Rebreet.find({
     $or: [
       { rebreeter: sessionUser.username },
@@ -34,6 +43,9 @@ module.exports.renderBreeta = async (req, res, next) => {
     .sort({ time: -1 })
     .limit(20 - baseBreets.length)
     .populate("breet");
+  } catch(e){
+    console.log(e)}
+  console.log("got to here 2")
   const feed = [...baseBreets, ...rebreets].sort((a, b) => {
     return b.time - a.time;
   });
@@ -45,10 +57,12 @@ module.exports.renderBreeta = async (req, res, next) => {
       breets.push({ ...breet.breet._doc, rebreeter: breet.rebreeter });
     }
   }
+  console.log("got to here 3")
   req.session.pageNum = 1;
   if (breets.length) {
     req.session.lastBreet = breets.findLast((e) => e.time).time;
   }
+  console.log("got to here 4")
   res.render("./breeta/breeta", {
     breets,
     users,
