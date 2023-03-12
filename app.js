@@ -73,30 +73,6 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
-const fontSrcUrls = [  "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/",];
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: [],
-      // connectSrc: ["'self'", ...connectSrcUrls],
-      scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
-      styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
-      workerSrc: ["'self'", "blob:"],
-      childSrc: ["blob:"],
-      objectSrc: [],
-      imgSrc: [
-        "'self'",
-        "blob:",
-        "data:",
-        "https://res.cloudinary.com/breeta/",
-        "https://i.pinimg.com",
-      ],
-      fontSrc: ["'self'", ...fontSrcUrls],
-    },
-    crossOriginEmbedderPolicy: false,
-  })
-);
-
 // passport config
 app.use(passport.initialize());
 app.use(passport.session());
