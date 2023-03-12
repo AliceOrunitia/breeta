@@ -36,7 +36,11 @@ router.get("/notifications", isLoggedIn, wrapAsync(users.renderNotifications));
 router
   .route("/newuser")
   .get(users.renderNewUser)
-  .post(upload.single("breet[image]"), validateUser, wrapAsync(users.registerUser));
+  .post(
+    upload.single("user[image]"),
+    validateUser,
+    wrapAsync(users.registerUser)
+  );
 
 router.get("/explore", isLoggedIn, wrapAsync(users.exploreUsers));
 
