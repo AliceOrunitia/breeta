@@ -49,8 +49,12 @@ module.exports.renderBreeta = async (req, res, next) => {
   } catch(e){
     console.log(e)}
   console.log("got to here 2")
+  if(baseBreets.length){
   console.log("baseBreets:", baseBreets)
+  }
+  if(rebreets.length){
 console.log("rebreets:", rebreets)
+  }
   const feed = [...baseBreets, ...rebreets].sort((a, b) => {
     return b.time - a.time;
   });
