@@ -110,6 +110,7 @@ module.exports.renderNotifications = async (req, res, next) => {
         follow.active = false;
       }
     });
+    await setInactive();
 
     notification.breets.forEach((breet) => {
       breet.replies.forEach((reply) => {
