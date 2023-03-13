@@ -132,6 +132,8 @@ module.exports.renderNotifications = async (req, res, next) => {
     });
     await notification.save();
   };
+
+
 const user = await User.findOne({ username: sessionUser.username });
 if (activeNotifications.length > 0) {
   user.notifications -= activeNotifications.length;
@@ -139,8 +141,7 @@ if (activeNotifications.length > 0) {
   user.notifications = 0;
 }
 await user.save();
-    }
-    await user.save();
+
   
   // check if there are fewer than 20 active notifications
   if (activeNotifications.length < 20) {
