@@ -132,11 +132,13 @@ module.exports.renderNotifications = async (req, res, next) => {
     });
     await notification.save();
   };
-
-      if (activeNotifications.length > 0) {
-      user.notifications - activeNotifications.length;
-    } else if (activeNotifications.length === 0) {
-      user.notifications = 0;
+const user = await User.findOne({ username: sessionUser.username });
+if (activeNotifications.length > 0) {
+  user.notifications -= activeNotifications.length;
+} else {
+  user.notifications = 0;
+}
+await user.save();
     }
     await user.save();
   
