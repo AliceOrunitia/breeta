@@ -13,10 +13,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
     let touchendX = 0;
 
     function checkDirection() {
-      if (touchendX + 150 < touchstartX) {
+      if (touchendX + 100 < touchstartX) {
         document.body.classList.remove("sb-sidenav-toggled");
       }
-      if (touchendX - 150 > touchstartX) {
+      if (touchendX - 100 > touchstartX) {
         document.body.classList.add("sb-sidenav-toggled");
       }
     }
