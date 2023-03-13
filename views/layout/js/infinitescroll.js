@@ -108,6 +108,7 @@ const addCards = (pageIndex, breets, sessionUser) => {
     breet = breets[i];
     createCard(breet, sessionUser);
   }
+    loader.setAttribute("style", "display: none;");
 };
 
 const handleInfiniteScroll = async () => {
