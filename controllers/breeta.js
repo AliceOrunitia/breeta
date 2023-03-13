@@ -222,8 +222,7 @@ module.exports.reBreet = async (req, res, next) => {
   }
   //Rebreet
   await User.findByIdAndUpdate(sessionUser._id, {
-    $inc: { rebreets: 1 },
-    $inc: { notifications: 1 },
+    $inc: { rebreets: 1, notifications: 1 },
   });
   await Breet.findByIdAndUpdate(id, { $inc: { rebreets: 1 } });
   await Rebreet.findOneAndUpdate(
