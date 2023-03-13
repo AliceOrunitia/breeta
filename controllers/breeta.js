@@ -289,8 +289,9 @@ module.exports.likeBreet = async (req, res, next) => {
     return res.redirect("back");
   } else {
     await User.findByIdAndUpdate(sessionUser._id, {
-      $inc: { likes: 1 },
-      $inc: { notifications: 1 },
+      $inc: { 
+        likes: 1,
+        notifications: 1 },
     });
     await Breet.updateOne({ _id: breet._id }, { $inc: { likes: 1 } });
     await Like.findByIdAndUpdate(like._id, {
