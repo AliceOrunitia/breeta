@@ -130,14 +130,16 @@ module.exports.renderNotifications = async (req, res, next) => {
         }
       });
     });
-    await setInactive();
     await notification.save();
-    await User.findOneAndUpdate(
-      { username: sessionUser.username },
-      { $inc: { notifications: -activeNotifications.length } }
-    );
   };
 
+      if (activeNotifications.length > 0) {
+      user.notifications - activeNotifications.length;
+    } else if (activeNotifications.length === 0) {
+      user.notifications = 0;
+    }
+    await user.save();
+  
   // check if there are fewer than 20 active notifications
   if (activeNotifications.length < 20) {
     const inactiveFollows = notification.follows.filter(
