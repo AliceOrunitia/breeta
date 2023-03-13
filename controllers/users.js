@@ -110,7 +110,6 @@ module.exports.renderNotifications = async (req, res, next) => {
         follow.active = false;
       }
     });
-    await setInactive();
 
     notification.breets.forEach((breet) => {
       breet.replies.forEach((reply) => {
@@ -131,6 +130,7 @@ module.exports.renderNotifications = async (req, res, next) => {
         }
       });
     });
+    await setInactive();
     await notification.save();
     await User.findOneAndUpdate(
       { username: sessionUser.username },
