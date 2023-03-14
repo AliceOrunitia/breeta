@@ -45,7 +45,7 @@
                   <h6 class="text-muted fw-light mb-0 my-md-1"> <small><i class="bi bi-chat"></i> In reply to <a href="/breeta/<%=breet.parent._id%>" class="link-unstyled">@<%=breet.parent.username%></small></a></h6>
                   <% } %>
                 <div class="card-title h5 mb-3 fw-bold"><%=breet.dName%> <a href="/users/<%=breet.username%>" class="link-unstyled">
-                  <span class="h6 text-muted ms-1">@<%=breet.username%></span></a><form action="/users/<%=breet.username%>" method="post" style=" display:inline!important;"><button id="followButton" class="shadow rounded-circle p-2 float-end me-1"><i class="bi bi-person-<%if(sessionUser.following.includes(breet.username)){%>fill-slash<%}else if(sessionUser.username !== breet.username){%>heart<%}%> h6"></i></button></form>
+                  <span class="h6 text-muted ms-1">@<%=breet.username%></span></a><form action="/users/<%=breet.username%>" method="post" style=" display:inline!important;"><button id="followButton" class="shadow rounded-circle p-1 p-md-2 float-end me-1"><i class="bi bi-person-<%if(sessionUser.following.includes(breet.username)){%>fill-slash<%}else if(sessionUser.username !== breet.username){%>heart<%}%> h6"></i></button></form>
                 </div>
                 <a href="/breeta/<%=breet._id%>"class="link-unstyled"><p class="card-text h6 border shadow-sm rounded-3 py-4 px-3 mb-md-3"><small><%=breet.content%></small></p></a>
                 <% if(breet.image) {%>
