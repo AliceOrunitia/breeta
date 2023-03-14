@@ -11,6 +11,7 @@ const AppError = require("./appError");
 const flash = require("connect-flash");
 const mongoSanitize = require("express-mongo-sanitize");
 const session = require("express-session");
+const cors = require("cors");
 const User = require("./models/users");
 // const helmet = require("helmet");
 const MongoDBStore = require("connect-mongo");
@@ -41,6 +42,11 @@ app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.use(
+  cors({
+    origin: "https://breeta.onrender.com",
+  })
+);
 app.use(express.static("./views/layout"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
