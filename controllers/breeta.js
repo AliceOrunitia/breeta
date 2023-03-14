@@ -335,13 +335,13 @@ module.exports.renderBreets = async (req, res, next) => {
       {
         $and: [
           { username: sessionUser.username },
-          { time: { $lt: req.session.lastBreet } },
+          { time: { $lt: lastBreet } },
         ],
       },
       {
         $and: [
           { username: { $in: sessionUser.following } },
-          { time: { $lt: req.session.lastBreet } },
+          { time: { $lt: lastBreet } },
         ],
       },
     ],
@@ -359,13 +359,13 @@ module.exports.renderBreets = async (req, res, next) => {
       {
         $and: [
           { rebreeter: sessionUser.username },
-          { time: { $lt: req.session.lastBreet } },
+          { time: { $lt: lastBreet } },
         ],
       },
       {
         $and: [
           { rebreeter: { $in: sessionUser.following } },
-          { time: { $lt: req.session.lastBreet } },
+          { time: { $lt: lastBreet } },
         ],
       },
     ],
