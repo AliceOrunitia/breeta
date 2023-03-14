@@ -354,6 +354,7 @@ module.exports.renderBreets = async (req, res, next) => {
     console.log("error:", e)
   }
     console.log("got to here 4")
+  try{
   const rebreets = await Rebreet.find({
     $or: [
       {
@@ -373,6 +374,10 @@ module.exports.renderBreets = async (req, res, next) => {
     .sort({ time: -1 })
     .limit(20 - baseBreets.length)
     .populate("breet");
+  } catch(e){
+    console.log("boo hoo bitch face")
+    console.log(e);
+  }
     console.log("got to here 5")
   const feed = [...baseBreets, ...rebreets].sort((a, b) => {
     return b.time - a.time;
