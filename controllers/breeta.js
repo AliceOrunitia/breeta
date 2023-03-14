@@ -323,17 +323,11 @@ module.exports.renderBreets = async (req, res, next) => {
   req.session.pageNum += 1;
   console.log("got to here")
   console.log("req.user:", req.user);
-  console.log("req.passport.user:", req.passport.user)
-  try{
-    const sessionUser = await User.findOne({username: req.passport.user});
-  } catch(e){
-console.log(e)
-  }
+  console.log("req.user:", req.user)
+  const sessionUser = req.user;
   console.log("new sessionUser attempt:", sessionUser);
   const lastBreet = req.session.lastBreet;
     console.log("got to here 2")
-  const users = await User.find({});
-    console.log("got to here 3")
   try{
   const baseBreets = await Breet.find({
     $or: [
@@ -355,6 +349,7 @@ console.log(e)
     .limit(15)
     .populate("parent");
   } catch(e){
+    console.log("wahhh")
     console.log("error:", e)
   }
     console.log("got to here 4")
