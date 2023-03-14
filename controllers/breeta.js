@@ -204,7 +204,7 @@ module.exports.editBreet = async (req, res, next) => {
     ...req.body.breet,
   });
   await breet.save();
-  req.flash("success", "Successfully updated breet");
+  req.flash("success", "Unrebreeted!");
   res.redirect(`/breeta/${breet._id}`);
 };
 
@@ -251,7 +251,7 @@ module.exports.reBreet = async (req, res, next) => {
     },
     { new: true }
   );
-  req.flash("success", "Unrebreeted!");
+  req.flash("success", "Rebreeted!");
   res.redirect("back");
 };
 
