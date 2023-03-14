@@ -318,12 +318,8 @@ module.exports.likeBreet = async (req, res, next) => {
 
 module.exports.renderBreets = async (req, res, next) => {
   req.session.pageNum += 1;
-  console.log("req.user:", req.user);
-
   const sessionUser = req.user;
-  console.log("new sessionUser attempt:", sessionUser);
   const lastBreet = req.session.lastBreet.time;
-  console.log("lastBreet:", lastBreet);
     let feed = [];
   try{
   const baseBreets = await Breet.find({
@@ -369,37 +365,21 @@ module.exports.renderBreets = async (req, res, next) => {
     return b.time - a.time;
   });
   } catch(e){
-    console.log("boo hoo bitch face")
     console.log(e);
   }
   } catch(e){
-    console.log("wahhh")
     console.log("error:", e)
   }
-    console.log("got to here 4")
-  console.log("feed:", feed[0]);
-    console.log("got to here 5")
-    console.log("got to here 6")
-
   let breets = [];
   for (let breet of feed) {
     if (breet.content) {
-        console.log("breet content if")
-      console.log("breet:", breet);
       breets.push(breet);
     } else {
-      console.log("breet feed else hit")
       breets.push({ ...breet.breet._doc, rebreeter: breet.rebreeter });
     }
   }
-    console.log("got to here 7")
-  console.log("breets:", breets);
-  console.log("got to here 8");
   if (breets.length) {
-      console.log("breet length if")
      req.session.lastBreet = breets[breets.length-1]
   }
-    console.log("end of controller");
-  console.log(breets);
   res.json({ breets, sessionUser });
 };
