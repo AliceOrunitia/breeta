@@ -329,6 +329,7 @@ module.exports.renderBreets = async (req, res, next) => {
   const lastBreet = req.session.lastBreet.time;
   console.log("lastBreet:", lastBreet);
     console.log("got to here 2")
+    let feed = [];
   try{
   const baseBreets = await Breet.find({
     $or: [
@@ -369,6 +370,14 @@ module.exports.renderBreets = async (req, res, next) => {
     .sort({ time: -1 })
     .limit(20 - baseBreets.length)
     .populate("breet");
+            if (rebreets) {
+      feed = [...feed, ...rebreets].sort((a, b) => {
+        return b.time - a.time;
+      });
+    }
+  } catch (e) {
+    console.log(e);
+  }
   } catch(e){
     console.log("boo hoo bitch face")
     console.log(e);
@@ -384,12 +393,14 @@ module.exports.renderBreets = async (req, res, next) => {
     return b.time - a.time;
   });
     console.log("got to here 6")
+
   let breets = [];
   for (let breet of feed) {
     if (breet.content) {
         console.log("breet content if")
       breets.push(breet);
     } else {
+      console.log("breet feed else hit")
       breets.push({ ...breet.breet._doc, rebreeter: breet.rebreeter });
     }
   }
