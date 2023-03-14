@@ -320,7 +320,6 @@ module.exports.renderBreets = async (req, res, next) => {
   console.log("renderBreets controller hit")
   console.log("session:", req.session);
   console.log("body:", req.body);
-  console.log("cookie", req.cookie);
   req.session.pageNum += 1;
   console.log("got to here")
   const lastBreet = req.session.lastBreet;
