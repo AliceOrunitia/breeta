@@ -317,6 +317,10 @@ module.exports.likeBreet = async (req, res, next) => {
 };
 
 module.exports.renderBreets = async (req, res, next) => {
+  console.log("renderBreets controller hit")
+  console.log("session:", req.session);
+  console.log("body:", req.body);
+  console.log("cookie", req.cookie);
   req.session.pageNum += 1;
   const lastBreet = req.session.lastBreet;
   const sessionUser = req.user;
@@ -373,5 +377,7 @@ module.exports.renderBreets = async (req, res, next) => {
   if (breets.length) {
     req.session.lastBreet = breets.findLast((e) => e.time).time;
   }
+    console.log("end of controller");
+  console.log(breets);
   res.json({ breets, sessionUser });
 };
