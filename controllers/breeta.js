@@ -322,11 +322,13 @@ module.exports.renderBreets = async (req, res, next) => {
   console.log("body:", req.body);
   req.session.pageNum += 1;
   console.log("got to here")
+  console.log("req.user:", req.user);
   const lastBreet = req.session.lastBreet;
   const sessionUser = req.user;
     console.log("got to here 2")
   const users = await User.find({});
     console.log("got to here 3")
+  try{
   const baseBreets = await Breet.find({
     $or: [
       {
@@ -346,6 +348,9 @@ module.exports.renderBreets = async (req, res, next) => {
     .sort({ time: -1 })
     .limit(15)
     .populate("parent");
+  } catch(e){
+    console.log("error:", e)
+  }
     console.log("got to here 4")
   const rebreets = await Rebreet.find({
     $or: [
