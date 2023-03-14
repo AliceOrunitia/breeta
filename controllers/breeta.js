@@ -385,6 +385,7 @@ module.exports.renderBreets = async (req, res, next) => {
   for (let breet of feed) {
     if (breet.content) {
         console.log("breet content if")
+      console.log("breet:", breet);
       breets.push(breet);
     } else {
       console.log("breet feed else hit")
