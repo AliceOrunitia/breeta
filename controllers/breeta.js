@@ -315,3 +315,63 @@ module.exports.likeBreet = async (req, res, next) => {
     return res.redirect("back");
   }
 };
+
+module.exports.renderBreets = async (req, res, next) => {
+  req.session.pageNum += 1;
+  const lastBreet = req.session.lastBreet;
+  const sessionUser = req.user;
+  const users = await User.find({});
+  const baseBreets = await Breet.find({
+    $or: [
+      {
+        $and: [
+          { username: sessionUser.username },
+          { time: { $lt: req.session.lastBreet } },
+        ],
+      },
+      {
+        $and: [
+          { username: { $in: sessionUser.following } },
+          { time: { $lt: req.session.lastBreet } },
+        ],
+      },
+    ],
+  })
+    .sort({ time: -1 })
+    .limit(15)
+    .populate("parent");
+  const rebreets = await Rebreet.find({
+    $or: [
+      {
+        $and: [
+          { rebreeter: sessionUser.username },
+          { time: { $lt: req.session.lastBreet } },
+        ],
+      },
+      {
+        $and: [
+          { rebreeter: { $in: sessionUser.following } },
+          { time: { $lt: req.session.lastBreet } },
+        ],
+      },
+    ],
+  })
+    .sort({ time: -1 })
+    .limit(20 - baseBreets.length)
+    .populate("breet");
+  const feed = [...baseBreets, ...rebreets].sort((a, b) => {
+    return b.time - a.time;
+  });
+  let breets = [];
+  for (let breet of feed) {
+    if (breet.content) {
+      breets.push(breet);
+    } else {
+      breets.push({ ...breet.breet._doc, rebreeter: breet.rebreeter });
+    }
+  }
+  if (breets.length) {
+    req.session.lastBreet = breets.findLast((e) => e.time).time;
+  }
+  res.json({ breets, sessionUser });
+};
