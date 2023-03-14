@@ -375,9 +375,6 @@ module.exports.renderBreets = async (req, res, next) => {
         return b.time - a.time;
       });
     }
-  } catch (e) {
-    console.log(e);
-  }
   } catch(e){
     console.log("boo hoo bitch face")
     console.log(e);
