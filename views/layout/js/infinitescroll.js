@@ -52,46 +52,46 @@ const throttle = (callback, time) => {
 const createCard = (breet, sessionUser) => {
   const breetContainer = document.createElement("div");
   breetContainer.setAttribute("id", "breet-container");
-  breetContainer.setAttribute("class", "card my-3");
-  breetContainer.setAttribute("style", "max-width: 600px;");
-  let builder = `<div class="row"><div class="col-3 col-sm-2 ms-2 mt-4"><img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,w_200,g_face/${breet.pfp.slice(
+  breetContainer.setAttribute("class", "card my-3 ms-md-3 ms-1 pe-0 shadow-sm");
+  breetContainer.setAttribute("style", "max-width: 700px;");
+  let builder = `<div class="row"><div class="col-2 mt-4 px-0 ms-3"><img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,g_face,h_400,w_400/r_max/c_scale,w_200/${breet.pfp.slice(
     47
-  )}" class="img-fluid img-thumbnail rounded-circle" alt="..."></div>`;
+  )}" class="img-fluid shadow img-thumbnail rounded-circle" alt="..."></div>`;
   if (breet.rebreeter || breet.parent) {
-    builder += `<div class="col"><div class="card-body p0">`;
+    builder += `<div class="col px-0 me-md-2"><div class="card-body py-0">`;
   } else {
-    builder += `<div class="col"><div class="card-body pb-0">`;
+    builder += `<div class="col px-0 me-md-2"><div class="card-body pb-0">`;
   }
   if (breet.rebreeter) {
-    builder += `<h6 class="text-muted fw-light align-top"> <i class="bi bi-arrow-repeat"></i> Rebreeted By <a href="/users/${breet.username}" class="link-unstyled">@${breet.username}</a></h6>`;
+    builder += `<h6 class="text-muted fw-light mb-0 my-md-1"> <small><i class="bi bi-arrow-repeat"></i> Rebreeted By <a href="/users/${breet.username}" class="link-unstyled">@${breet.username}</small></a></h6>`;
   } else if (breet.parent) {
-    builder += `<h6 class="text-muted fw-light align-top"> <i class="bi bi-chat"></i> In reply to <a href="/breeta/${breet.parent._id}" class="link-unstyled">@${breet.parent.username}</a></h6>`;
+    builder += `<h6 class="text-muted fw-light mb-0 my-md-1"> </small><i class="bi bi-chat"></i> In reply to <a href="/breeta/${breet.parent._id}" class="link-unstyled">@${breet.parent.username}</small></a></h6>`;
   }
   const iconFiller = sessionUser.following.includes(breet.username)
     ? "fill-slash"
     : sessionUser.username !== breet.username
     ? "heart"
     : "";
-  builder += `<div class="card-title h5 mb-4">${breet.dName} <a href="/users/${breet.username}" class="link-unstyled"><span class="h6 text-muted">@${breet.username}</span></a><form action="/users/${breet.username}" method="post" style=" display:inline!important;"><button id="followButton"><i class="bi bi-person-${iconFiller} h6"></i></button></form></div><a href="/breeta/${breet._id}"class="link-unstyled"><p class="card-text border rounded-3 py-4 px-3">${breet.content}</p></a>`;
+  builder += `<div class="card-title h5 mb-3 fw-bold">${breet.dName} <a href="/users/${breet.username}" class="link-unstyled"><span class="h6 text-muted ms-1">@${breet.username}</span></a><form action="/users/${breet.username}" method="post" style=" display:inline!important;"><button id="followButton" class="shadow rounded-circle p-2 float-end me-1"><i class="bi bi-person-${iconFiller} h6"></i></button></form></div><a href="/breeta/${breet._id}"class="link-unstyled"><p class="card-text h6 border shadow-sm rounded-3 py-4 px-3 mb-md-3"><small>${breet.content}</small></p></a>`;
 
   if (breet.image) {
-    builder += `<div><img src="${breet.image.url}" class="ml-0" alt="${breet.image.filename}" style="max-height: 200px; object-fit:contain;"></div>`;
+    builder += `<div><img src="${breet.image.url}" class="ml-0 mt-2 mt-md-0 rounded" alt="${breet.image.filename}" style="max-height: 200px; object-fit:contain;"></div>`;
   }
-  builder += `<p class="card-text mb-0 mt-4"><a href="/breeta/${
+  builder += `<p class="card-text my-2"><a href="/breeta/${
     breet._id
-  }/like" class="link-unstyled"><button class="btn ps-0 pb-2"><i class="bi bi-heart"></i></button>${
+  }/like" class="link-unstyled"><span class="md-h5 border border-2 rounded-pill p-md-2 shadow-sm px-2 py-md-1"><i class="bi bi-heart"></i> ${
     breet.likes
-  }</a><a href="/breeta/${
+  }</span></a><a href="/breeta/${
     breet._id
-  }/reply" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-chat"></i></button>${
+  }/reply" class="link-unstyled"><span class="md-h5 border border-2 rounded-pill p-md-2 shadow-sm px-2 py-md-1"><i class="bi bi-chat"></i> ${
     breet.replies
-  }</a><a href="/breeta/${
+  }</span></a><a href="/breeta/${
     breet._id
-  }/rebreet" class="link-unstyled"><button class="btn pb-2"><i class="bi bi-arrow-repeat"></i></button>${
+  }/rebreet" class="link-unstyled"><span class="md-h5 border border-2 rounded-pill p-md-2 shadow-sm px-2 py-md-1 mx-1"><i class="bi bi-arrow-repeat"></i> ${
     breet.rebreets
-  }</a><p class="mb-0"><small class="text-muted align-text-top"> Posted ${timeCall(
+  }</span></a><p class="mb-0 mb-md-1 ms-1"><small class="text-muted align-text-top"><i class="bi bi-calendar-event"></i> Posted ${timeCall(
     breet.time
-  )}</small></p></div></div></div>`;
+  )}</small></p></div></div></div></div>`;
   breetContainer.innerHTML = builder;
   cardContainer.append(breetContainer);
 };
