@@ -317,18 +317,13 @@ module.exports.likeBreet = async (req, res, next) => {
 };
 
 module.exports.renderBreets = async (req, res, next) => {
-  console.log("renderBreets controller hit")
-  console.log("session:", req.session);
-  console.log("body:", req.body);
   req.session.pageNum += 1;
-  console.log("got to here")
   console.log("req.user:", req.user);
-  console.log("req.user:", req.user)
+
   const sessionUser = req.user;
   console.log("new sessionUser attempt:", sessionUser);
   const lastBreet = req.session.lastBreet.time;
   console.log("lastBreet:", lastBreet);
-    console.log("got to here 2")
     let feed = [];
   try{
   const baseBreets = await Breet.find({
@@ -370,11 +365,9 @@ module.exports.renderBreets = async (req, res, next) => {
     .sort({ time: -1 })
     .limit(20 - baseBreets.length)
     .populate("breet");
-            if (rebreets) {
-      feed = [...feed, ...rebreets].sort((a, b) => {
-        return b.time - a.time;
-      });
-    }
+  feed = [...baseBreets, ...rebreets].sort((a, b) => {
+    return b.time - a.time;
+  });
   } catch(e){
     console.log("boo hoo bitch face")
     console.log(e);
@@ -384,7 +377,7 @@ module.exports.renderBreets = async (req, res, next) => {
     console.log("error:", e)
   }
     console.log("got to here 4")
-
+  console.log("feed:", feed);
     console.log("got to here 5")
     console.log("got to here 6")
 
