@@ -120,12 +120,13 @@ const handleInfiniteScroll = async () => {
       const getter = async () => {
         try {
           const response = await axios.get(
-            "http://localhost:3005/breeta/scroller"
+            "/breeta/scroller"
           );
           const data = response.data;
           return data;
         } catch (e) {
-          return e;
+           console.log(e);
+          return {breets: [], sessionUser: null};
         }
       };
       const { breets, sessionUser } = await getter();
