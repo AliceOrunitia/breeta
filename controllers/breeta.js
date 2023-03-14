@@ -326,7 +326,8 @@ module.exports.renderBreets = async (req, res, next) => {
   console.log("req.user:", req.user)
   const sessionUser = req.user;
   console.log("new sessionUser attempt:", sessionUser);
-  const lastBreet = req.session.lastBreet;
+  const lastBreet = req.session.lastBreet.time;
+  console.log("lastBreet:", lastBreet);
     console.log("got to here 2")
   try{
   const baseBreets = await Breet.find({
