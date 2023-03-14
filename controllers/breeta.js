@@ -386,9 +386,6 @@ module.exports.renderBreets = async (req, res, next) => {
     console.log("got to here 4")
 
     console.log("got to here 5")
-  const feed = [...baseBreets, ...rebreets].sort((a, b) => {
-    return b.time - a.time;
-  });
     console.log("got to here 6")
 
   let breets = [];
