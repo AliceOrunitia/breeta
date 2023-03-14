@@ -1,14 +1,16 @@
+</div>
 <%-include("../partials/header")%>
 
 
-<div class="card my-3" style="max-width: 100vh;">
+<div class="card my-3 ms-md-3 ms-1 pe-0 shadow-sm" style="max-width: 700px;">
   <div class="row">
-    <div class="col-3 col-sm-2 ms-2 mt-4">
-      <img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,w_200,g_face/<%=sessionUser.pfp.url.slice(47)%>" class="img-fluid img-thumbnail rounded-circle" alt="...">
+    <div class="col-2 mt-4 px-0 ms-3">
+      <img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,g_face,h_400,w_400/r_max/c_scale,w_200/<%=sessionUser.pfp.url.slice(47)%>" class="img-fluid shadow img-thumbnail rounded-circle" alt="...">
     </div>
-    <div class="col">
-        <div class="card-title h5 mb-4 mt-3"><%=sessionUser.dName%> <a href="/users/<%=sessionUser.username%>" class="link-unstyled">
-          <span class="h6 text-muted">@<%=sessionUser.username%></span></a>
+    <div class="col px-0 me-md-2">
+      <div class="card-body pb-0">
+        <div class="card-title h5 mb-3 fw-bold"><%=sessionUser.dName%> <a href="/users/<%=sessionUser.username%>" class="link-unstyled">
+          <span class="h6 text-muted ms-1">@<%=sessionUser.username%></span></a>
         </div>
        <form action="/breeta/breet" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
        <div class="input-group pe-3 mb-3">
@@ -25,7 +27,7 @@
           </div>
         </div>
 
-        <button class="btn border mb-3 px-3" id="submitButton" disabled><i class="bi bi-brush"></i> Breet!</button>
+        <button class="btn border mb-3 px-3 shadow-sm" id="submitButton" disabled><i class="bi bi-brush"></i> Breet!</button>
         <div id="words_count" class="mb-3"><span id="textcount"></span></div>
        </div>
     </div>
@@ -34,6 +36,6 @@
 </form>
 </div>
 </div>
+</div>
 
 <script src="/js/input.js"></script>
-<%-include("../partials/footer")%>
