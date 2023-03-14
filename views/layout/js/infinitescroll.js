@@ -116,16 +116,13 @@ const handleInfiniteScroll = async () => {
     const endOfPage =
       window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
     if (endOfPage && document.body.offsetHeight > window.innerHeight + 100) {
-      console.log("if hit")
       loader.setAttribute("style", "display: block;");
       const getter = async () => {
         try {
           const response = await axios.get(
             "/breeta/scroller", { withCredentials: true }
           );
-          console.log("got to here")
           const data = response.data;
-          console.log(data)
           return data;
         } catch (e) {
            console.log(e);
