@@ -322,9 +322,12 @@ module.exports.renderBreets = async (req, res, next) => {
   console.log("body:", req.body);
   console.log("cookie", req.cookie);
   req.session.pageNum += 1;
+  console.log("got to here")
   const lastBreet = req.session.lastBreet;
   const sessionUser = req.user;
+    console.log("got to here 2")
   const users = await User.find({});
+    console.log("got to here 3")
   const baseBreets = await Breet.find({
     $or: [
       {
@@ -344,6 +347,7 @@ module.exports.renderBreets = async (req, res, next) => {
     .sort({ time: -1 })
     .limit(15)
     .populate("parent");
+    console.log("got to here 4")
   const rebreets = await Rebreet.find({
     $or: [
       {
@@ -363,18 +367,23 @@ module.exports.renderBreets = async (req, res, next) => {
     .sort({ time: -1 })
     .limit(20 - baseBreets.length)
     .populate("breet");
+    console.log("got to here 5")
   const feed = [...baseBreets, ...rebreets].sort((a, b) => {
     return b.time - a.time;
   });
+    console.log("got to here 6")
   let breets = [];
   for (let breet of feed) {
     if (breet.content) {
+        console.log("breet content if")
       breets.push(breet);
     } else {
       breets.push({ ...breet.breet._doc, rebreeter: breet.rebreeter });
     }
   }
+    console.log("got to here 7")
   if (breets.length) {
+      console.log("breet length if")
     req.session.lastBreet = breets.findLast((e) => e.time).time;
   }
     console.log("end of controller");
