@@ -8,7 +8,7 @@ const Rebreet = require("./models/rebreets");
 module.exports.isLoggedIn = async (req, res, next) => {
   console.log("is logged in hit")
   console.log("req session:", req.session);
-  console.log("req user:", req.user;
+  console.log("req user:", req.user);
   if (!req.isAuthenticated()) {
     req.session.returnTo = req.originalUrl;
     req.flash("error", "You must be signed in first!");
