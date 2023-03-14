@@ -323,8 +323,14 @@ module.exports.renderBreets = async (req, res, next) => {
   req.session.pageNum += 1;
   console.log("got to here")
   console.log("req.user:", req.user);
+  console.log("req.passport.user:", req.passport.user)
+  try{
+    const sessionUser = await User.findOne({username: req.passport.user});
+  } catch(e){
+console.log(e)
+  }
+  console.log("new sessionUser attempt:", sessionUser);
   const lastBreet = req.session.lastBreet;
-  const sessionUser = req.user;
     console.log("got to here 2")
   const users = await User.find({});
     console.log("got to here 3")
