@@ -121,7 +121,7 @@ const handleInfiniteScroll = async () => {
       const getter = async () => {
         try {
           const response = await axios.get(
-            "/breeta/scroller"
+            "/breeta/scroller", { withCredentials: true }
           );
           console.log("got to here")
           const data = response.data;
