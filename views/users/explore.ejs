@@ -8,12 +8,12 @@
     <div class="card my-3 shadow-sm" style="max-width: 700px">
       <div class="row">
         <div class="col-3 col-sm-2 ms-2 mt-4">
-          <img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,w_200,g_face/<%=user.pfp.url.slice(47)%>" class="img-fluid shadow img-thumbnail rounded-circle" alt="...">
+          <img src="https://res.cloudinary.com/breeta/image/upload/c_thumb,g_face,h_400,w_400/r_max/c_scale,w_200/<%=user.pfp.url.slice(47)%>" class="img-fluid shadow img-thumbnail rounded-circle" alt="...">
         </div>
         <div class="col ps-0">
           <div class="card-body pb-0 ps-0">
             <div class="card-title h5 mb-0 fw-bold"><%=user.dName%> 
-              <a href="/users/<%=user.username%>" class="link-unstyled"><span class="h6 text-muted">@<%=user.username%></span></a><form action="/users/<%=user.username%>" method="post" style=" display:inline!important;"><button id="followButton" class="shadow rounded-circle p-1 float-end me-1"><i class="bi bi-person-<%if(sessionUser.following.includes(user.username)){%>fill-slash<%}else if(sessionUser.username !== user.username){%>heart<%}%> h6"></i></button></form>
+              <a href="/users/<%=user.username%>" class="link-unstyled"><span class="h6 text-muted">@<%=user.username%></span></a><form action="/users/<%=user.username%>" method="post" style=" display:inline!important;"><button id="followButton" class="shadow rounded-circle p-2 float-end me-1"><i class="bi bi-person-<%if(sessionUser.following.includes(user.username)){%>fill-slash<%}else if(sessionUser.username !== user.username){%>heart<%}%> h6"></i></button></form>
             </div>
             <div class="card-title fst-italic">Bio:</div>
               <p class="card-text border mb-0 py-2 px-3 shadow-sm rounded"><small><%=user.bio%></small></p>
