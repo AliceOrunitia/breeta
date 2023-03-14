@@ -101,10 +101,14 @@ module.exports.renderNotifications = async (req, res, next) => {
     ...activeReplies,
     ...activeLikes,
     ...activeRebreets,
-  ];
+  ]
+    .sort((a, b) => {
+      return b.time - a.time;
+    })
+    .slice(0, 20);
 
+  // Set all active to inactive
   const setInactive = async () => {
-    // Set all active to inactive
     notification.follows.forEach((follow) => {
       if (follow.active) {
         follow.active = false;
@@ -133,16 +137,16 @@ module.exports.renderNotifications = async (req, res, next) => {
     await notification.save();
   };
 
-
-const user = await User.findOne({ username: sessionUser.username });
-if (activeNotifications.length > 0) {
-  user.notifications -= activeNotifications.length;
-} else {
-  user.notifications = 0;
-}
-await user.save();
-
-  
+  const user = await User.findOne({ username: sessionUser.username });
+  if (
+    activeNotifications.length > 0 &&
+    user.notifications - activeNotifications.length > 0
+  ) {
+    user.notifications -= activeNotifications.length > 0;
+  } else {
+    user.notifications = 0;
+  }
+  await user.save();
   // check if there are fewer than 20 active notifications
   if (activeNotifications.length < 20) {
     const inactiveFollows = notification.follows.filter(
@@ -165,9 +169,10 @@ await user.save();
       ...inactiveRebreets,
     ]
       .sort((a, b) => {
-        b.time - a.time;
+        return b.time - a.time;
       })
-      .slice(0, 20);
+      .slice(0, 20 - activeNotifications.length);
+
     setInactive();
     res.render("./users/notifications", {
       sessionUser,
@@ -175,6 +180,7 @@ await user.save();
       activeNotifications,
       inactiveNotifications,
     });
+    
   } else {
     setInactive();
     res.render("./users/notifications", {
