@@ -377,7 +377,7 @@ module.exports.renderBreets = async (req, res, next) => {
     console.log("error:", e)
   }
     console.log("got to here 4")
-  console.log("feed:", feed);
+  console.log("feed:", feed[0]);
     console.log("got to here 5")
     console.log("got to here 6")
 
@@ -392,6 +392,8 @@ module.exports.renderBreets = async (req, res, next) => {
     }
   }
     console.log("got to here 7")
+  console.log("breets:", breets);
+  console.log("got to here 8");
   if (breets.length) {
       console.log("breet length if")
     req.session.lastBreet = breets.findLast((e) => e.time).time;
