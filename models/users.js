@@ -68,39 +68,8 @@ passwordValidator = function (password, cb) {
         "A valid password must contain at least 8 characters, at least one uppercase and lowercase character, number and special case character"
       )
     : cb();
-  // if (someValidationErrorExists(password)) {
-  //   return cb('this is my custom validation error message')
-  // }
-  // // return an empty cb() on success
-  // return cb()
 };
 
 UserSchema.plugin(passportLocalMongoose);
 
-// UserSchema.plugin(passportLocalMongoose, {
-//   passwordValidator: passwordValidator,
-//     dNameField: "username",
-//   dNameCaseInsensitive: true,
-// });
-// username: {
-//   type: String,
-//   required: true,
-//   min: [6, "must be at least 6 characters"],
-//   max: [20, "cannot be longer than 20 characters"],
-// },
-// password: {
-//   type: String,
-//   validate: {
-//     validator: function (v) {
-//       return /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(
-//         v
-//       );
-//     },
-//     message: (
-//       props
-//     ) => `${props.value} is not a valid password, must contain at least 8 characters, at least one
-//       uppercase and lowercase character, number and special case character`,
-//   },
-//   required: [true, "valid password required"],
-// },
 module.exports = mongoose.model("User", UserSchema);
