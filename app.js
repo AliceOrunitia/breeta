@@ -13,7 +13,6 @@ const mongoSanitize = require("express-mongo-sanitize");
 const session = require("express-session");
 const cors = require("cors");
 const User = require("./models/users");
-// const helmet = require("helmet");
 const MongoDBStore = require("connect-mongo");
 
 //Authentication
@@ -80,54 +79,6 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
-// // Helmet Config
-// const scriptSrcUrls = [
-//   "https://stackpath.bootstrapcdn.com",
-//   "https://kit.fontawesome.com",
-//   "https://cdnjs.cloudflare.com",
-//   "https://cdn.jsdelivr.net",
-//   "https://code.jquery.com",
-//   "views/layout/js/ClientValidation.js",
-//   "views/layout/js/infiniteScroll.js",
-//   "views/layout/js/scripts.js",
-// ];
-// const styleSrcUrls = [
-//   "https://kit-free.fontawesome.com",
-//   "https://stackpath.bootstrapcdn.com",
-//   "https://fonts.googleapis.com",
-//   "https://use.fontawesome.com",
-//   "https://cdn.jsdelivr.net",
-//   "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css",
-// ];
-
-// const fontSrcUrls = [
-//   "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/",
-// ];
-
-// app.use(
-//   helmet.contentSecurityPolicy({
-//     directives: {
-//       defaultSrc: [],
-//       // connectSrc: ["'self'", ...connectSrcUrls],
-//       scriptSrc: ["'self'", "'unsafe-inline'", ...scriptSrcUrls],
-//       scriptSrcAttr: ["'self'"],
-//       styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
-//       workerSrc: ["'self'", "blob:"],
-//       childSrc: ["blob:"],
-//       objectSrc: [],
-//       imgSrc: [
-//         "'self'",
-//         "blob:",
-//         "data:",
-//         "https://res.cloudinary.com/breeta/",
-//         "https://i.pinimg.com",
-//       ],
-//       fontSrc: ["'self'", ...fontSrcUrls],
-//     },
-//     crossOriginEmbedderPolicy: false,
-//   })
-// );
-
 // passport config
 app.use(passport.initialize());
 app.use(passport.session());
@@ -144,13 +95,6 @@ app.use((req, res, next) => {
   res.locals.error = req.flash("error");
   next();
 });
-
-//~~ROADMAP~~
-// Set up password recovery/update
-// build edit tweet properly -longer term build with edited icon and version history
-// Add some personality
-// Create git repository and upload to github
-// Deploy on render
 
 app.get("/", (req, res) => {
   res.render("./home");
