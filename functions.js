@@ -1,7 +1,3 @@
-function likeCounter(arr) {
-  return arr.length;
-}
-
 function isS(num) {
   return num > 1 ? "s " : " ";
 }
@@ -26,7 +22,7 @@ function timeCall(postDate) {
   return timeAgo(parseInt(now - postDate));
 }
 
-module.exports.likeCounter = likeCounter;
+// module.exports.likeCounter = likeCounter;
 module.exports.isS = isS;
 module.exports.timeAgo = timeAgo;
 module.exports.getDate = new Date();
